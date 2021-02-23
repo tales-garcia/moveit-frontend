@@ -1,7 +1,17 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import './App.css';
+import styled, { ThemeProvider } from 'styled-components';
+import ExperienceBar from './components/ExperienceBar';
 import GlobalStyle from './styles/global';
+
+const Container = styled.div`
+  height: 100vh;
+  max-width: 992px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+
+  display: flex;
+  flex-direction: column;
+`;
 
 const theme = {
   white: '#FFF',
@@ -21,7 +31,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <h1>Hello World</h1>
+      <Container>
+        <ExperienceBar />
+      </Container>
     </ThemeProvider>
   );
 }
