@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import CompleteChallenges from '../components/CompleteChallenges';
+import Countdown from '../components/Countdown';
 import ExperienceBar from '../components/ExperienceBar';
 import Profile from '../components/Profile';
 
@@ -29,6 +31,8 @@ function App() {
       <section>
         <div>
           <Profile />
+          <CompleteChallenges />
+          <Countdown />
         </div>
         <div>
 
