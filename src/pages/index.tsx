@@ -4,6 +4,7 @@ import CompleteChallenges from '../components/CompleteChallenges';
 import Countdown from '../components/Countdown';
 import ExperienceBar from '../components/ExperienceBar';
 import Profile from '../components/Profile';
+import Head from 'next/head';
 
 const Container = styled.div`
   height: 100vh;
@@ -26,6 +27,9 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
+      <Head>
+        <title>Home | MoveIt</title>
+      </Head>
       <ExperienceBar />
 
       <section>
