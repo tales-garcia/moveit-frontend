@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ExperienceBar from '../components/ExperienceBar';
+import Profile from '../components/Profile';
 
 const Container = styled.div`
   height: 100vh;
@@ -10,6 +11,14 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  section {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6.25rem;
+    align-content: center;
+  }
 `;
 
 function App() {
@@ -18,11 +27,12 @@ function App() {
       <ExperienceBar />
 
       <section>
-        <div></div>
-        <div></div>
-      </section>
-      <section>
-        <div></div>
+        <div>
+          <Profile />
+        </div>
+        <div>
+
+        </div>
       </section>
     </Container>
   );
