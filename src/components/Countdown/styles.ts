@@ -33,3 +33,27 @@ export const Container = styled.div`
         }
     }
 `;
+
+export const CycleButton = styled.button`
+    width: 100%;
+    height: 5rem;
+
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 5px;
+
+    background-color: ${({ theme }) => theme.blue};
+    color: ${({ theme }) => theme.white};
+
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    transition: background-color .2s;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.darkBlue};
+    }
+`;
