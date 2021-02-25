@@ -5,6 +5,7 @@ import Countdown from '../components/Countdown';
 import ExperienceBar from '../components/ExperienceBar';
 import Profile from '../components/Profile';
 import Head from 'next/head';
+import ChallengeBox from '../components/ChallengeBox';
 
 const Container = styled.div`
   height: 100vh;
@@ -39,7 +40,7 @@ function App() {
           <Countdown />
         </div>
         <div>
-
+          <ChallengeBox />
         </div>
       </section>
     </Container>
