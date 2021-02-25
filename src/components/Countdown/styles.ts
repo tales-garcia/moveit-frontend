@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface CycleButtonProps {
+    isActive?: number;
+}
 
 export const Container = styled.div`
     display: flex;
@@ -34,7 +38,7 @@ export const Container = styled.div`
     }
 `;
 
-export const CycleButton = styled.button`
+export const CycleButton = styled.button<CycleButtonProps>`
     width: 100%;
     height: 5rem;
 
@@ -53,7 +57,23 @@ export const CycleButton = styled.button`
 
     transition: background-color .2s;
 
-    &:hover {
+    &:not(:disabled):hover {
         background-color: ${({ theme }) => theme.darkBlue};
     }
+
+    ${({ isActive, theme }) => isActive && css`
+        background: ${theme.white};
+        color: ${theme.title};
+
+        &:hover {
+            background: ${theme.red};
+            color: ${theme.white};
+        }
+    `}
+
+    ${({ disabled, theme }) => disabled && css`
+        background: ${theme.white};
+        color: ${theme.text};
+        cursor: not-allowed;
+    `}
 `;

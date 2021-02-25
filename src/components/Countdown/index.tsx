@@ -4,7 +4,8 @@ import { Container, CycleButton } from './styles';
 
 const Countdown: React.FC = () => {
     const [time, setTime] = useState(25 * 60);
-    const [active, setActive] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [hasFinished, setHasFinished] = useState(false);
 
     const minutes = useMemo(() => Math.floor(time / 60), [time]);
     const seconds = useMemo(() => time % 60, [time]);
@@ -13,17 +14,27 @@ const Countdown: React.FC = () => {
     const splittedSeconds = useMemo(() => String(seconds).padStart(2, '0').split(''), [seconds]);
 
     useEffect(() => {
-        if (active && time > 0) {
+        if (isActive && time > 0) {
             const timeout = setTimeout(() => setTime(time - 1), 1000);
             return () => clearTimeout(timeout);
+        } else if (isActive && time === 0) {
+            setHasFinished(true);
         }
-    }, [active, time]);
+    }, [isActive, time]);
 
     const toggleCounter = useCallback(
         () => {
-            setActive(!active);
+            setIsActive(!isActive);
         },
-        [active, setActive],
+        [isActive, setIsActive],
+    );
+
+    const resetCounter = useCallback(
+        () => {
+            setIsActive(false);
+            setTime(25 * 60);
+        },
+        []
     )
 
     return (
@@ -39,7 +50,11 @@ const Countdown: React.FC = () => {
                     <span>{splittedSeconds[1]}</span>
                 </div>
             </Container>
-            <CycleButton onClick={toggleCounter} type="button">Iniciar um ciclo</CycleButton>
+            {hasFinished ? (
+                <CycleButton disabled type="button">Ciclo encerrado</CycleButton>
+            ) : (
+                <CycleButton isActive={Number(isActive)} onClick={isActive ? resetCounter : toggleCounter} type="button">{isActive ? 'Abandonar ciclo' : 'Iniciar um ciclo'}</CycleButton>
+            )}
         </>
     );
 }
