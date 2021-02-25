@@ -65,7 +65,7 @@ export const CycleButton = styled.button<CycleButtonProps>`
         background: ${theme.white};
         color: ${theme.title};
 
-        &:hover {
+        &:not(:disabled):hover {
             background: ${theme.red};
             color: ${theme.white};
         }
