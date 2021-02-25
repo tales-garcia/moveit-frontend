@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.header`
+interface ContainerProps {
+    percentage: number;
+}
+
+export const Container = styled.header<ContainerProps>`
     display: flex;
     align-items: center;
 
@@ -19,7 +23,7 @@ export const Container = styled.header`
         > div {
             position: absolute;
             height: 100%;
-            width: 50%;
+            width: ${({ percentage }) => percentage}%;
             background-color: ${({ theme }) => theme.green};
             top: 0;
             bottom: 0;
@@ -30,7 +34,7 @@ export const Container = styled.header`
         > span {
             position: absolute;
             top: 12px;
-            left: 50%;
+            left: ${({ percentage }) => percentage}%;
             transform: translateX(-50%);
         }
     }
