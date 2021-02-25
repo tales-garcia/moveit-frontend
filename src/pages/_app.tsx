@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components';
+import ChallengeProvider from '../hooks/challenge';
 import GlobalStyle from '../styles/global';
 
 const theme = {
@@ -17,10 +18,12 @@ const theme = {
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-      <GlobalStyle />
-    </ThemeProvider>
+    <ChallengeProvider>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+        <GlobalStyle />
+      </ThemeProvider>
+    </ChallengeProvider>
   );
 }
 
