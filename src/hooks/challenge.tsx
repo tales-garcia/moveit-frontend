@@ -1,11 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContext, useContext } from "react";
 import challenges from '../../challenges.json';
+import Cookie from 'js-cookie';
 
 interface Challenge {
     type: 'body' | 'eye';
     description: string;
     amount: number;
+}
+
+interface ChallengeProviderProps {
+    currentExperience?: number;
+    level?: number;
+    challengesCompleted?: number;
 }
 
 interface ChallengeContextData {
@@ -31,10 +38,10 @@ export const useChallenge = () => {
     return data;
 }
 
-const ChallengeProvider: React.FC = ({ children }) => {
-    const [level, setLevel] = useState(1);
-    const [currentExperience, setCurrentExperience] = useState(0);
-    const [challengesCompleted, setChallengesCompleted] = useState(0);
+const ChallengeProvider: React.FC<ChallengeProviderProps> = ({ children, level: levelCookie, challengesCompleted: challengesCompletedCookie, currentExperience: currentExperienceCookie }) => {
+    const [level, setLevel] = useState(levelCookie || 1);
+    const [currentExperience, setCurrentExperience] = useState(currentExperienceCookie || 0);
+    const [challengesCompleted, setChallengesCompleted] = useState(challengesCompletedCookie || 0);
     const [activeChallenge, setActiveChallenge] = useState<Challenge | null>(null);
     const experienceToNextLevel = useMemo(() => Math.pow((level + 1) * 4, 2), [level]);
 
@@ -48,6 +55,12 @@ const ChallengeProvider: React.FC = ({ children }) => {
     useEffect(() => {
         Notification.requestPermission();
     }, [])
+
+    useEffect(() => {
+        Cookie.set('level', String(level));
+        Cookie.set('currentExperience', String(currentExperience));
+        Cookie.set('challengesCompleted', String(challengesCompleted));
+    }, [level, currentExperience, activeChallenge, challengesCompleted]);
 
     const startNewChallenge = useCallback(
         async () => {
