@@ -6,6 +6,8 @@ import ExperienceBar from '../components/ExperienceBar';
 import Profile from '../components/Profile';
 import Head from 'next/head';
 import ChallengeBox from '../components/ChallengeBox';
+import { GetServerSideProps } from 'next';
+import ChallengeProvider from '../hooks/challenge';
 
 const Container = styled.div`
   height: 100vh;
@@ -25,26 +27,40 @@ const Container = styled.div`
   }
 `;
 
-function App() {
+function App({ level, challengesCompleted, currentExperience }) {
   return (
-    <Container>
-      <Head>
-        <title>Home | MoveIt</title>
-      </Head>
-      <ExperienceBar />
+    <ChallengeProvider level={level} challengesCompleted={challengesCompleted} currentExperience={currentExperience} >
+      <Container>
+        <Head>
+          <title>Home | MoveIt</title>
+        </Head>
+        <ExperienceBar />
 
-      <section>
-        <div>
-          <Profile />
-          <CompleteChallenges />
-          <Countdown />
-        </div>
-        <div>
-          <ChallengeBox />
-        </div>
-      </section>
-    </Container>
+        <section>
+          <div>
+            <Profile />
+            <CompleteChallenges />
+            <Countdown />
+          </div>
+          <div>
+            <ChallengeBox />
+          </div>
+        </section>
+      </Container>
+    </ChallengeProvider>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { level, challengesCompleted, currentExperience } = ctx.req.cookies;
+
+  return {
+    props: {
+      level: Number(level),
+      challengesCompleted: Number(challengesCompleted),
+      currentExperience: Number(currentExperience)
+    }
+  }
 }
 
 export default App;
