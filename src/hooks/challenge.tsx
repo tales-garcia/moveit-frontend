@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContext, useContext } from "react";
 import challenges from '../../challenges.json';
 
@@ -45,11 +45,26 @@ const ChallengeProvider: React.FC = ({ children }) => {
         [level]
     );
 
+    useEffect(() => {
+        Notification.requestPermission();
+    }, [])
+
     const startNewChallenge = useCallback(
-        () => {
+        async () => {
             const randomIndex = Math.floor(Math.random() * challenges.length);
 
-            setActiveChallenge((challenges as Challenge[])[randomIndex]);
+            const challenge = (challenges as Challenge[])[randomIndex];
+
+            setActiveChallenge(challenge);
+
+            await new Audio('/notification.mp3').play();
+
+            if (Notification.permission === 'granted') {
+                new Notification('Novo desafio! 🎉', {
+                    body: `Valendo ${challenge.amount} xp!`,
+                    icon: 'favicon.png'
+                });
+            }
         },
         []
     );
