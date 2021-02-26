@@ -6,7 +6,7 @@ import { Container, CycleButton } from './styles';
 const Countdown: React.FC = () => {
     const [time, setTime] = useState(0.05 * 60);
     const [isActive, setIsActive] = useState(false);
-    const { hasFinishedCycle, toggleCycle } = useChallenge();
+    const { activeChallenge } = useChallenge();
     const { startNewChallenge } = useChallenge()
 
     const minutes = useMemo(() => Math.floor(time / 60), [time]);
@@ -20,16 +20,15 @@ const Countdown: React.FC = () => {
             const timeout = setTimeout(() => setTime(time - 1), 1000);
             return () => clearTimeout(timeout);
         } else if (isActive && time === 0) {
-            toggleCycle();
             startNewChallenge();
         }
     }, [isActive, time]);
 
     useEffect(() => {
-        if (!hasFinishedCycle) {
+        if (!activeChallenge) {
             resetCounter();
         }
-    }, [hasFinishedCycle]);
+    }, [activeChallenge]);
 
     const toggleCounter = useCallback(
         () => {
@@ -59,7 +58,7 @@ const Countdown: React.FC = () => {
                     <span>{splittedSeconds[1]}</span>
                 </div>
             </Container>
-            {hasFinishedCycle ? (
+            {activeChallenge ? (
                 <CycleButton disabled type="button">Ciclo encerrado</CycleButton>
             ) : (
                 <CycleButton isActive={Number(isActive)} onClick={isActive ? resetCounter : toggleCounter} type="button">{isActive ? 'Abandonar ciclo' : 'Iniciar um ciclo'}</CycleButton>

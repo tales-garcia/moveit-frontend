@@ -14,13 +14,11 @@ interface ChallengeContextData {
     challengesCompleted: number;
     activeChallenge: Challenge;
     experienceToNextLevel: number;
-    hasFinishedCycle: boolean;
 
     finishChallenge(experience: number): void;
     levelUp(): void;
     startNewChallenge(): void;
     resetChallenge(): void;
-    toggleCycle(): void;
 }
 
 export const challengeContext = createContext({} as ChallengeContextData);
@@ -38,7 +36,6 @@ const ChallengeProvider: React.FC = ({ children }) => {
     const [currentExperience, setCurrentExperience] = useState(0);
     const [challengesCompleted, setChallengesCompleted] = useState(0);
     const [activeChallenge, setActiveChallenge] = useState<Challenge | null>(null);
-    const [hasFinishedCycle, setHasFinishedCycle] = useState(false);
     const experienceToNextLevel = useMemo(() => Math.pow((level + 1) * 4, 2), [level]);
 
     const levelUp = useCallback(
@@ -60,17 +57,10 @@ const ChallengeProvider: React.FC = ({ children }) => {
     const resetChallenge = useCallback(
         () => {
             setActiveChallenge(null as Challenge);
-            setHasFinishedCycle(false);
         },
         []
     );
 
-    const toggleCycle = useCallback(
-        () => {
-            setHasFinishedCycle(!hasFinishedCycle);
-        },
-        [hasFinishedCycle]
-    );
 
     const finishChallenge = useCallback(
         (experience) => {
@@ -92,12 +82,10 @@ const ChallengeProvider: React.FC = ({ children }) => {
             currentExperience,
             challengesCompleted,
             experienceToNextLevel,
-            hasFinishedCycle,
             levelUp,
             startNewChallenge,
             resetChallenge,
             finishChallenge,
-            toggleCycle,
             activeChallenge
         }}>
             {children}
