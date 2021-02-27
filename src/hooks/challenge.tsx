@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContext, useContext } from "react";
 import challenges from '../../challenges.json';
 import Cookie from 'js-cookie';
+import LevelUpModal from '../components/LevelUpModal';
 
 interface Challenge {
     type: 'body' | 'eye';
@@ -21,11 +22,13 @@ interface ChallengeContextData {
     challengesCompleted: number;
     activeChallenge: Challenge;
     experienceToNextLevel: number;
+    isActive: boolean;
 
     finishChallenge(experience: number): void;
     levelUp(): void;
     startNewChallenge(): void;
     resetChallenge(): void;
+    toggleModal(state: boolean): void;
 }
 
 export const challengeContext = createContext({} as ChallengeContextData);
@@ -44,10 +47,19 @@ const ChallengeProvider: React.FC<ChallengeProviderProps> = ({ children, level: 
     const [challengesCompleted, setChallengesCompleted] = useState(challengesCompletedCookie || 0);
     const [activeChallenge, setActiveChallenge] = useState<Challenge | null>(null);
     const experienceToNextLevel = useMemo(() => Math.pow((level + 1) * 4, 2), [level]);
+    const [isActive, setIsActive] = useState(false);
+
+    const toggleModal = useCallback(
+        (state) => {
+            setIsActive(state);
+        },
+        [isActive, setIsActive]
+    );
 
     const levelUp = useCallback(
         () => {
             setLevel(level + 1);
+            toggleModal(true);
         },
         [level]
     );
@@ -114,8 +126,11 @@ const ChallengeProvider: React.FC<ChallengeProviderProps> = ({ children, level: 
             startNewChallenge,
             resetChallenge,
             finishChallenge,
+            toggleModal,
+            isActive,
             activeChallenge
         }}>
+            <LevelUpModal />
             {children}
         </challengeContext.Provider>
     );
