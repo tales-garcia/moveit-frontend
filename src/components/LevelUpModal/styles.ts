@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const Overlay = styled.div`
+export const Overlay = styled(motion.div)`
     background: rgba(242, 243, 245, 0.8);
     position: fixed;
     top: 0;
