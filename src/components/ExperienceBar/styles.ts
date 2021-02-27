@@ -23,7 +23,6 @@ export const Container = styled.header<ContainerProps>`
         > div {
             position: absolute;
             height: 100%;
-            width: ${({ percentage }) => percentage}%;
             background-color: ${({ theme }) => theme.green};
             top: 0;
             bottom: 0;
@@ -34,7 +33,6 @@ export const Container = styled.header<ContainerProps>`
         > span {
             position: absolute;
             top: 12px;
-            left: ${({ percentage }) => percentage}%;
             transform: translateX(-50%);
         }
     }
