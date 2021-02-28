@@ -8,6 +8,8 @@ import Head from 'next/head';
 import ChallengeBox from '../components/ChallengeBox';
 import { GetServerSideProps } from 'next';
 import ChallengeProvider from '../hooks/challenge';
+import { useAuth } from '../hooks/auth';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   height: 100vh;
@@ -28,7 +30,16 @@ const Container = styled.div`
 `;
 
 function App({ level, challengesCompleted, currentExperience }) {
-  return (
+  const { user } = useAuth();
+  const { push } = useRouter();
+
+  React.useEffect(() => {
+    if (!user) {
+      push('/login');
+    }
+  }, []);
+
+  return user && (
     <ChallengeProvider level={level} challengesCompleted={challengesCompleted} currentExperience={currentExperience} >
       <Container>
         <Head>
