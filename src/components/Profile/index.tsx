@@ -1,15 +1,17 @@
 import React from 'react';
 import { useChallenge } from '../../hooks/challenge';
 import { Container } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 const Profile: React.FC = () => {
   const { level } = useChallenge();
+  const { user } = useAuth();
 
-  return (
+  return user && (
     <Container>
-      <img src="https://github.com/tales-garcia.png" alt="Tales Garcia"/>
+      <img src={user.avatar_url} alt={user.name}/>
       <div>
-        <strong>Tales Garcia</strong>
+        <strong>{user.name}</strong>
         <p>
           <img src="icons/level.svg" alt="Level"/>
           Level {level}
