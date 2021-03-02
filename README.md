@@ -1,10 +1,10 @@
 <img src="/public/logo-full.svg" alt="Logo" width="100%"></img>
 <p align="center">
   ✅ Project concluded. <br><br>
-  <a href="https://moveit.tales-garcia.vercel.app"><img src="https://therealsujitk-vercel-badge.vercel.app/?app=moveit.tales-garcia" alt="Build badge" /></a>
-  <img src="https://img.shields.io/david/dev/tales-garcia/moveit-frontend?label=dependencies&logo=NPM" alt="dependencies" />
-  <img src="https://img.shields.io/github/license/tales-garcia/moveit-frontend" alt="license" />
-  <img src="https://img.shields.io/github/last-commit/tales-garcia/moveit-frontend?logo=git" alt="last commit" />
+  <a href="https://moveit.tales-garcia.vercel.app"><img src="https://website-badge.herokuapp.com/moveit.tales-garcia.vercel.app?style=for-the-badge" alt="Build badge" /></a>
+  <img src="https://img.shields.io/david/dev/tales-garcia/moveit-frontend?label=dependencies&logo=NPM&style=for-the-badge" alt="dependencies" />
+  <img src="https://img.shields.io/github/license/tales-garcia/moveit-frontend?style=for-the-badge" alt="license" />
+  <img src="https://img.shields.io/github/last-commit/tales-garcia/moveit-frontend?logo=git&style=for-the-badge" alt="last commit" />
 </p>
 
 # MoveIt
